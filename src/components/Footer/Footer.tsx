@@ -8,7 +8,7 @@ const StyledFooter = styled.footer`
 
 const Container = styled.div`
   max-width: ${({ theme }) => theme.layout.container};
-  min-height: ${({ theme }) => theme.components.footer.height};
+  min-height: 90px;
   margin: 0 auto;
   padding: 0 32px;
 
@@ -18,8 +18,8 @@ const Container = styled.div`
 
 const CopyText = styled.p`
   margin: 0;
-  font-size: ${({ theme }) => theme.fontSizes.lg_36};
-  font-weight: ${({ theme }) => theme.fontWeights.semiBold_600};
+  font-size: ${({ theme }) => theme.typography.footer.fontSize};
+  font-weight: ${({ theme }) => theme.typography.footer.fontWeight};
 `;
 
 // Component

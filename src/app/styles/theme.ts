@@ -3,44 +3,11 @@ export const theme = {
     primary: "#4356B8",
     background: "#FFFFFF",
     text: "#222222",
+    accent: "#F5E48B",
   },
 
   fonts: {
     family: '"Roboto", sans-serif',
-  },
-
-  fontWeights: {
-    regular_400: 400,
-    medium_500: 500,
-    semiBold_600: 600,
-    bold_700: 700,
-  },
-
-  fontSizes: {
-    xs_14: "14px",
-    sm_16: "16px",
-    md_20: "20px",
-    md_24: "20px",
-    lg_36: "36px",
-    xl_50: "50px",
-  },
-
-  spacing: {
-    xs_4: "4px",
-    sm_8: "8px",
-    md_16: "16px",
-    lg_24: "24px",
-    xl_32: "32px",
-    xxl_36: "36px",
-    xxxl_48: "48px",
-  },
-
-  radius: {
-    sm_4: "4px",
-    md_8: "8px",
-    lg_12: "12px",
-    xl_16: "16px",
-    round: "9999px",
   },
 
   layout: {
@@ -50,14 +17,67 @@ export const theme = {
     },
   },
 
-  // Components
-  components: {
-    header: {
-      height: "90px",
+  // Typography
+  typography: {
+    body: {
+      fontSize: "20px",
+      fontWeight: 400,
+      lineHeight: "130%",
     },
 
+    // Header
+
+    logo: {
+      fontSize: "36px",
+      fontWeight: 600,
+      lineHeight: "100%",
+    },
+
+    nav: {
+      fontSize: "24px",
+      fontWeight: 600,
+      lineHeight: "100%",
+    },
+
+    // Footer
     footer: {
-      height: "90px",
+      fontSize: "24px",
+      fontWeight: 600,
+      lineHeight: "100%",
+    },
+
+    // Hero Section
+    hero: {
+      title: {
+        fontSize: "50px",
+        fontWeight: 700,
+        lineHeight: "100%",
+      },
+      text: {
+        fontSize: "20px",
+        fontWeight: 400,
+        lineHeight: "130%",
+      },
+    },
+
+    // Feature Section
+    featureCard: {
+      title: {
+        fontSize: "24px",
+        fontWeight: 600,
+        lineHeight: "100%",
+      },
+      text: {
+        fontSize: "20px",
+        fontWeight: 400,
+        lineHeight: "100%",
+      },
+    },
+
+    // Buttons
+    button: {
+      fontSize: "20px",
+      fontWeight: 500,
     },
   },
 };

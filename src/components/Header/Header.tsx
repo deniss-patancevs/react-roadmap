@@ -10,7 +10,7 @@ const StyledHeader = styled.header`
 
 const Container = styled.div`
   max-width: ${({ theme }) => theme.layout.container.maxWidth};
-  height: ${({ theme }) => theme.components.header.height};
+  height: 90px;
   margin: 0 auto;
   padding: 0 32px;
 
@@ -22,26 +22,26 @@ const Container = styled.div`
 const Logo = styled(Link)`
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing.md_16};
+  gap: 16px;
 
   color: inherit;
   text-decoration: none;
 
-  font-size: ${({ theme }) => theme.fontSizes.lg_36};
-  font-weight: ${({ theme }) => theme.fontWeights.semiBold_600};
+  font-size: ${({ theme }) => theme.typography.logo.fontSize};
+  font-weight: ${({ theme }) => theme.typography.logo.fontWeight};
 `;
 
 const Nav = styled.nav`
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing.xxl_36};
+  gap: 36px;
 `;
 
 const NavLink = styled(Link)`
   color: inherit;
   text-decoration: none;
-  font-size: ${({ theme }) => theme.fontSizes.md_20};
-  font-weight: ${({ theme }) => theme.fontWeights.semiBold_600};
+  font-size: ${({ theme }) => theme.typography.nav.fontSize};
+  font-weight: ${({ theme }) => theme.typography.nav.fontWeight};
   transition: opacity 0.2s ease;
 
   &:hover {
