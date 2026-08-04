@@ -1,0 +1,39 @@
+.
+├── public
+│   └── favicon.svg
+├── src
+│   ├── app
+│   │   └── router
+│   │       └── Router.tsx
+│   ├── assets
+│   │   └── icons
+│   │       └── notebook.svg
+│   ├── components
+│   │   ├── Footer
+│   │   │   ├── Footer.tsx
+│   │   │   └── index.tsx
+│   │   └── Header
+│   │       ├── Header.tsx
+│   │       └── index.tsx
+│   ├── features
+│   ├── layouts
+│   │   └── MainLayout.tsx
+│   ├── pages
+│   │   └── HomePage.tsx
+│   ├── App.css
+│   ├── App.tsx
+│   ├── index.css
+│   └── main.tsx
+├── eslint.config.js
+├── .gitignore
+├── index.html
+├── package.json
+├── package-lock.json
+├── project_structure.txt
+├── README.md
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
+
+13 directories, 24 files

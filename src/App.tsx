@@ -1,8 +1,7 @@
-import './App.css'
+import Router from "./app/router/Router";
 
 function App() {
-
-  return <h1>Gatget store</h1>
+  return <Router />;
 }
 
-export default App
+export default App;
