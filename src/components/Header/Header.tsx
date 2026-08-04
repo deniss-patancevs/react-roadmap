@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import styled from "styled-components";
-// import { notebookLogo } from "../../assets/icons/notebook.svg";
+import notebookLogo from "@/assets/icons/notebook.svg";
 
 // Styles
 const StyledHeader = styled.header`
@@ -55,6 +55,7 @@ function Header() {
     <StyledHeader>
       <Container>
         <Logo to="/">
+          <img src={notebookLogo} alt="notebook logo" />
           <span>Gadget Store</span>
         </Logo>
 

@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import FeatureCard from "../../components/FeatureCard";
-import wifiIcon from "../../assets/icons/wifi.svg";
-import wearableIcon from "../../assets/icons/devices_wearables.svg";
-import lightBulbIcon from "../../assets/icons/light_bulb.svg";
+import FeatureCard from "@/components/FeatureCard";
+import wifiIcon from "@/assets/icons/wifi.svg";
+import wearableIcon from "@/assets/icons/devices_wearables.svg";
+import lightBulbIcon from "@/assets/icons/light_bulb.svg";
 
 const Section = styled.section`
   padding-top: 65px;

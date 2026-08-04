@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Button from "../../components/Button";
-import heroImage from "../../assets/images/hero image.png";
+import Button from "@/components/Button";
+import heroImage from "@/assets/images/hero image.png";
 
 const HeroSection = styled.section`
   width: 100%;
