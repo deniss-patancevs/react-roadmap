@@ -1,14 +1,20 @@
 import styled from "styled-components";
+import type { ComponentProps } from "react";
+
+type FeatureCardVariant = "default" | "compact";
 
 interface FeatureCardProps {
-  icon: string;
+  icon: ComponentProps<"img">["src"];
   title: string;
   description: string;
+  variant?: FeatureCardVariant;
 }
 
-const Card = styled.article`
+const Card = styled.article<{
+  $variant: FeatureCardVariant;
+}>`
   width: 311px;
-  height: 326px;
+  height: ${({ $variant }) => ($variant === "compact" ? "280px" : "326px")};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,22 +30,27 @@ const Icon = styled.img`
 
 const Title = styled.h3`
   margin: 33px 0 0;
-  font-size: ${({ theme }) => theme.typography.featureCard.title.fontSize};
-  font-weight: ${({ theme }) => theme.typography.featureCard.title.fontWeight};
-  line-height: ${({ theme }) => theme.typography.featureCard.title.lineHeight};
+  font-size: ${({ theme }) => theme.typography.title.fontSize};
+  font-weight: ${({ theme }) => theme.typography.title.fontWeight};
+  line-height: ${({ theme }) => theme.typography.title.lineHeight};
 `;
 
 const Description = styled.p`
   margin: 33px 20px 0;
   text-align: center;
-  font-size: ${({ theme }) => theme.typography.featureCard.text.fontSize};
-  font-weight: ${({ theme }) => theme.typography.featureCard.text.fontWeight};
-  line-height: ${({ theme }) => theme.typography.featureCard.text.lineHeight};
+  font-size: ${({ theme }) => theme.typography.body.fontSize};
+  font-weight: ${({ theme }) => theme.typography.body.fontWeight};
+  line-height: ${({ theme }) => theme.typography.body.lineHeight};
 `;
 
-function FeatureCard({ icon, title, description }: FeatureCardProps) {
+function FeatureCard({
+  icon,
+  title,
+  description,
+  variant = "default",
+}: FeatureCardProps) {
   return (
-    <Card>
+    <Card $variant={variant}>
       <Icon src={icon} alt="" />
 
       <Title>{title}</Title>

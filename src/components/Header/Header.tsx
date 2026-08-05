@@ -27,8 +27,8 @@ const Logo = styled(Link)`
   color: inherit;
   text-decoration: none;
 
-  font-size: ${({ theme }) => theme.typography.logo.fontSize};
-  font-weight: ${({ theme }) => theme.typography.logo.fontWeight};
+  font-size: ${({ theme }) => theme.typography.subheading.fontSize};
+  font-weight: ${({ theme }) => theme.typography.subheading.fontWeight};
 `;
 
 const Nav = styled.nav`
@@ -40,8 +40,8 @@ const Nav = styled.nav`
 const NavLink = styled(Link)`
   color: inherit;
   text-decoration: none;
-  font-size: ${({ theme }) => theme.typography.nav.fontSize};
-  font-weight: ${({ theme }) => theme.typography.nav.fontWeight};
+  font-size: ${({ theme }) => theme.typography.title.fontSize};
+  font-weight: ${({ theme }) => theme.typography.title.fontWeight};
   transition: opacity 0.2s ease;
 
   &:hover {
@@ -61,6 +61,9 @@ function Header() {
 
         <Nav>
           <NavLink to="/">Home</NavLink>
+          <NavLink to="/">Products</NavLink>
+          <NavLink to="/contacts">Contact us</NavLink>
+          <NavLink to="/">Cart</NavLink>
         </Nav>
       </Container>
     </StyledHeader>

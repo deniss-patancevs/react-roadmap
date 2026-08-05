@@ -19,62 +19,30 @@ export const theme = {
 
   // Typography
   typography: {
+    heading: {
+      fontSize: "50px",
+      fontWeight: 700,
+      lineHeight: "100%",
+    },
+
+    subheading: {
+      fontSize: "36px",
+      fontWeight: 600,
+      lineHeight: "100%",
+    },
+
+    title: {
+      fontSize: "24px",
+      fontWeight: 600,
+      lineHeight: "100%",
+    },
+
     body: {
       fontSize: "20px",
       fontWeight: 400,
       lineHeight: "130%",
     },
 
-    // Header
-
-    logo: {
-      fontSize: "36px",
-      fontWeight: 600,
-      lineHeight: "100%",
-    },
-
-    nav: {
-      fontSize: "24px",
-      fontWeight: 600,
-      lineHeight: "100%",
-    },
-
-    // Footer
-    footer: {
-      fontSize: "24px",
-      fontWeight: 600,
-      lineHeight: "100%",
-    },
-
-    // Hero Section
-    hero: {
-      title: {
-        fontSize: "50px",
-        fontWeight: 700,
-        lineHeight: "100%",
-      },
-      text: {
-        fontSize: "20px",
-        fontWeight: 400,
-        lineHeight: "130%",
-      },
-    },
-
-    // Feature Section
-    featureCard: {
-      title: {
-        fontSize: "24px",
-        fontWeight: 600,
-        lineHeight: "100%",
-      },
-      text: {
-        fontSize: "20px",
-        fontWeight: 400,
-        lineHeight: "100%",
-      },
-    },
-
-    // Buttons
     button: {
       fontSize: "20px",
       fontWeight: 500,

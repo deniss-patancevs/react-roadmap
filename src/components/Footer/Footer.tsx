@@ -18,8 +18,8 @@ const Container = styled.div`
 
 const CopyText = styled.p`
   margin: 0;
-  font-size: ${({ theme }) => theme.typography.footer.fontSize};
-  font-weight: ${({ theme }) => theme.typography.footer.fontWeight};
+  font-size: ${({ theme }) => theme.typography.title.fontSize};
+  font-weight: ${({ theme }) => theme.typography.title.fontWeight};
 `;
 
 // Component

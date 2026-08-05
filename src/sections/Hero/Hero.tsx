@@ -26,17 +26,17 @@ const Content = styled.div`
 
 const Title = styled.h1`
   margin: 0;
-  font-size: ${({ theme }) => theme.typography.hero.title.fontSize};
-  font-weight: ${({ theme }) => theme.typography.hero.title.fontWeight};
-  line-height: ${({ theme }) => theme.typography.hero.title.lineHeight};
+  font-size: ${({ theme }) => theme.typography.heading.fontSize};
+  font-weight: ${({ theme }) => theme.typography.heading.fontWeight};
+  line-height: ${({ theme }) => theme.typography.heading.lineHeight};
 `;
 
 const Description = styled.p`
   width: 499px;
   margin: 42px 0 0;
-  font-size: ${({ theme }) => theme.typography.hero.text.fontSize};
-  font-weight: ${({ theme }) => theme.typography.hero.title.fontWeight};
-  line-height: ${({ theme }) => theme.typography.hero.title.lineHeight};
+  font-size: ${({ theme }) => theme.typography.body.fontSize};
+  font-weight: ${({ theme }) => theme.typography.body.fontWeight};
+  line-height: ${({ theme }) => theme.typography.body.lineHeight};
 `;
 
 const Actions = styled.div`
