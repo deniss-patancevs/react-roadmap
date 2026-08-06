@@ -61,7 +61,7 @@ function Header() {
 
         <Nav>
           <NavLink to="/">Home</NavLink>
-          <NavLink to="/">Products</NavLink>
+          <NavLink to="/products">Products</NavLink>
           <NavLink to="/contacts">Contact us</NavLink>
           <NavLink to="/">Cart</NavLink>
         </Nav>

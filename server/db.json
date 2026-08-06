@@ -1,0 +1,52 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Smartwatch",
+      "price": 199.99,
+      "currency": "EUR",
+      "year": 2022,
+      "ram": "1GB",
+      "warranty": 2,
+      "description_short": "Stay connected on the go with this sleek and versatile smartwatch.",
+      "description_full": "This smartwatch offers a range of features including fitness tracking, notifications, and voice commands. Its long-lasting battery and durable design make it perfect for everyday wear.",
+      "features": [
+        "Fitness tracking",
+        "Notifications",
+        "Voice commands",
+        "Long battery life",
+        "Durable design"
+      ],
+      "image": "/images/products/macbook-pro-14.png",
+      "stock": 10
+    },
+    {
+      "id": 2,
+      "name": "Laptop",
+      "price": 899.99,
+      "currency": "EUR",
+      "year": 2025,
+      "ram": "8GB",
+      "warranty": 2,
+      "description_short": "Make your work and entertainment with you wherever you go with this laptop.",
+      "description_full": "",
+      "features": "",
+      "image": "/images/products/macbook-pro-14.png",
+      "stock": 10
+    },
+    {
+      "id": 3,
+      "name": "Smart Assistant",
+      "price": 149.99,
+      "currency": "EUR",
+      "year": 2023,
+      "ram": "2GB",
+      "warranty": 2,
+      "description_short": "Make your life easier with this smart assistant that can answer your questions.",
+      "description_full": "",
+      "features": "",
+      "image": "/images/products/macbook-pro-14.png",
+      "stock": 10
+    }
+  ]
+}

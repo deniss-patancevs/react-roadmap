@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "server": "json-server --watch server/db.json --port 3001",
+    "start": "npm run server & npm run dev"
   },
   "dependencies": {
     "react": "^19.2.8",
