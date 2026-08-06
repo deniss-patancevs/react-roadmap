@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Button from "@/components/Button";
+import { ButtonLink } from "@/components/Button";
 import heroImage from "@/assets/images/hero image.png";
 
 const HeroSection = styled.section`
@@ -68,9 +68,13 @@ function Hero() {
           </Description>
 
           <Actions>
-            <Button variant="outline">CONTACT US</Button>
+            <ButtonLink to="/contacts" variant="outline">
+              Contact Us
+            </ButtonLink>
 
-            <Button variant="primary">SHOP NOW</Button>
+            <ButtonLink to="/products" variant="primary">
+              Shop Now
+            </ButtonLink>
           </Actions>
         </Content>
 

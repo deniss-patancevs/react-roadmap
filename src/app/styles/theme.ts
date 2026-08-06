@@ -1,6 +1,6 @@
 export const theme = {
   colors: {
-    primary: "#4356B8",
+    primary: "#3F51B5",
     background: "#FFFFFF",
     text: "#222222",
     accent: "#F5E48B",
@@ -44,8 +44,16 @@ export const theme = {
     },
 
     button: {
-      fontSize: "20px",
+      fontSize: "23px",
       fontWeight: 500,
+      lineHeight: "26px",
+      letterSpacing: "2.08px",
+    },
+    buttonSmall: {
+      fontSize: "12px",
+      fontWeight: 500,
+      lineHeight: "12px",
+      letterSpacing: "1px",
     },
   },
 };

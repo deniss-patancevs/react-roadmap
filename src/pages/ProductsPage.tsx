@@ -1,7 +1,39 @@
+import styled from "styled-components";
 import { getProducts } from "@/api/products";
 import type { Product } from "@/types/product";
 import { useEffect, useState } from "react";
+import ProductCard from "@/components/ProductCard";
+import Button from "@/components/Button";
+import plusIcon from "@/assets/icons/plusIcon.svg";
 
+// Styles
+const Container = styled.main`
+  max-width: ${({ theme }) => theme.layout.container.maxWidth};
+  padding: 85px 70px;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+const Actions = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const ButtonIcon = styled.img`
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+`;
+
+const Grid = styled.section`
+  margin-top: 108px;
+  display: grid;
+  grid-template-columns: repeat(4, 310px);
+  gap: 21px;
+  justify-content: space-between;
+`;
+
+// Component
 function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
 
@@ -19,19 +51,20 @@ function ProductsPage() {
   }, []);
 
   return (
-    <main>
-      <h1>Products</h1>
+    <Container>
+      <Actions>
+        <Button>
+          <ButtonIcon src={plusIcon} alt="" />
+          <span>ADD NEW PRODUCT</span>
+        </Button>
+      </Actions>
 
-      {products.map((product) => (
-        <div key={product.id}>
-          <h2>{product.name}</h2>
-
-          <p>
-            {product.price} {product.currency}
-          </p>
-        </div>
-      ))}
-    </main>
+      <Grid>
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </Grid>
+    </Container>
   );
 }
 
