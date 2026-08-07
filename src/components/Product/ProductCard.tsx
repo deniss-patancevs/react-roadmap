@@ -11,11 +11,11 @@ const Card = styled.article`
   width: 310px;
   height: 405px;
   background: ${({ theme }) => theme.colors.background};
-  border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 1px 4px rgba(10, 9, 9, 0.16);
   display: flex;
   flex-direction: column;
+  border-radius: ${({ theme }) => theme.borderRadius.small};
+  box-shadow: ${({ theme }) => theme.shadows.card};
 `;
 
 const Header = styled.header`

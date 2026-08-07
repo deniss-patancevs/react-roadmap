@@ -63,7 +63,7 @@ function Header() {
           <NavLink to="/">Home</NavLink>
           <NavLink to="/products">Products</NavLink>
           <NavLink to="/contacts">Contact us</NavLink>
-          <NavLink to="/">Cart</NavLink>
+          <NavLink to="/cart">Cart</NavLink>
         </Nav>
       </Container>
     </StyledHeader>

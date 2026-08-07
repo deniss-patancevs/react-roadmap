@@ -10,9 +10,8 @@ const Container = styled.main`
   max-width: 1296px;
   margin: 70px auto;
   padding: 45px 106px;
-
-  border: 1px solid rgba(0, 0, 0, 0.16);
-  border-radius: 6px;
+  border-radius: ${({ theme }) => theme.borderRadius.small};
+  box-shadow: ${({ theme }) => theme.shadows.card};
 `;
 
 function ProductDetailsPage() {

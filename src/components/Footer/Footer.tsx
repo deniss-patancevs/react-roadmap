@@ -27,7 +27,7 @@ function Footer() {
   return (
     <StyledFooter>
       <Container>
-        <CopyText>© All rights reserved</CopyText>
+        <CopyText>© Deniss Patancevs</CopyText>
       </Container>
     </StyledFooter>
   );
