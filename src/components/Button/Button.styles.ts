@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import styled, { css } from "styled-components";
 
 export type ButtonVariant = "primary" | "outline";
-export type ButtonSize = "default" | "small";
+export type ButtonSize = "default" | "medium" | "small";
 
 interface StyledButtonProps {
   $variant: ButtonVariant;
@@ -17,6 +17,16 @@ const sizeStyles = {
     font-weight: ${({ theme }) => theme.typography.button.fontWeight};
     line-height: ${({ theme }) => theme.typography.button.lineHeight};
     letter-spacing: ${({ theme }) => theme.typography.button.letterSpacing};
+  `,
+
+  medium: css`
+    height: 48px;
+    padding: 4px 8px;
+    font-size: ${({ theme }) => theme.typography.buttonMedium.fontSize};
+    font-weight: ${({ theme }) => theme.typography.buttonMedium.fontWeight};
+    line-height: ${({ theme }) => theme.typography.buttonMedium.lineHeight};
+    letter-spacing: ${({ theme }) =>
+      theme.typography.buttonMedium.letterSpacing};
   `,
 
   small: css`
@@ -35,7 +45,7 @@ const variantStyles = {
     background: ${({ theme }) => theme.colors.primary};
     color: ${({ theme }) => theme.colors.background};
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    border: none;
+    border: 1px solid transparent;
   `,
 
   outline: css`
@@ -46,6 +56,7 @@ const variantStyles = {
 };
 
 const sharedStyles = css<StyledButtonProps>`
+  box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -55,6 +66,7 @@ const sharedStyles = css<StyledButtonProps>`
   text-decoration: none;
   text-transform: uppercase;
   transition: opacity 0.2s ease;
+  font-family: "Roboto", sans-serif;
   ${({ $size }) => sizeStyles[$size]}
   ${({ $variant }) => variantStyles[$variant]}
 

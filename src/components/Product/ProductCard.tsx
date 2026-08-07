@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Button from "@/components/Button";
+import Button, { ButtonLink } from "@/components/Button";
 import type { Product } from "@/types/product";
 
 interface ProductCardProps {
@@ -82,9 +82,13 @@ function ProductCard({ product }: ProductCardProps) {
       <Description>{product.description_short}</Description>
 
       <Actions>
-        <Button variant="outline" size="small">
+        <ButtonLink
+          to={`/products/${product.id}`}
+          variant="outline"
+          size="small"
+        >
           Details
-        </Button>
+        </ButtonLink>
 
         <Button variant="outline" size="small">
           Menu

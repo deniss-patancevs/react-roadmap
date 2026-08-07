@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { getProducts } from "@/api/products";
 import type { Product } from "@/types/product";
 import { useEffect, useState } from "react";
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/components/Product/ProductCard";
 import Button from "@/components/Button";
 import plusIcon from "@/assets/icons/plusIcon.svg";
 

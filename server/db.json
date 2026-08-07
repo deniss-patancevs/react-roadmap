@@ -29,8 +29,14 @@
       "ram": "8GB",
       "warranty": 2,
       "description_short": "Make your work and entertainment with you wherever you go with this laptop.",
-      "description_full": "",
-      "features": "",
+      "description_full": "This powerful laptop is designed for work, study, and entertainment. It provides smooth performance, a high-quality display, and enough memory for multitasking. Its lightweight design makes it easy to carry anywhere.",
+      "features": [
+        "High performance processor",
+        "Full HD display",
+        "Fast SSD storage",
+        "Portable design",
+        "Long battery life"
+      ],
       "image": "laptop.png",
       "stock": 10
     },
@@ -43,8 +49,14 @@
       "ram": "2GB",
       "warranty": 2,
       "description_short": "Make your life easier with this smart assistant that can answer your questions.",
-      "description_full": "",
-      "features": "",
+      "description_full": "This smart assistant helps you manage daily tasks, control smart devices, and quickly find information. With voice recognition technology and an intuitive interface, it makes your home smarter and more convenient.",
+      "features": [
+        "Voice control",
+        "Smart home integration",
+        "Question answering",
+        "Music playback",
+        "Daily reminders"
+      ],
       "image": "smart_assistant.png",
       "stock": 10
     },
@@ -57,8 +69,14 @@
       "ram": "4GB",
       "warranty": 2,
       "description_short": "Stay connected and productive on the go with this powerful smartphone.",
-      "description_full": "",
-      "features": "",
+      "description_full": "This modern smartphone combines powerful performance, advanced cameras, and a bright display. It is perfect for communication, entertainment, photography, and everyday productivity.",
+      "features": [
+        "High resolution camera",
+        "Fast mobile performance",
+        "Large touchscreen display",
+        "5G connectivity",
+        "Face recognition"
+      ],
       "image": "smartphone.png",
       "stock": 10
     },
@@ -71,8 +89,14 @@
       "ram": "",
       "warranty": 2,
       "description_short": "Enjoy your favorite music and podcasts with these comfortable earbuds.",
-      "description_full": "",
-      "features": "",
+      "description_full": "These wireless earbuds deliver clear sound, comfortable fit, and reliable connectivity. They are perfect for music, calls, and everyday use with a compact charging case.",
+      "features": [
+        "Wireless connection",
+        "Noise cancellation",
+        "Touch controls",
+        "Charging case",
+        "Comfortable fit"
+      ],
       "image": "earbuds.png",
       "stock": 10
     },
@@ -85,8 +109,14 @@
       "ram": "8GB",
       "warranty": 2,
       "description_short": "Stay productive and entertained on the go with this versatile tablet.",
-      "description_full": "",
-      "features": "",
+      "description_full": "This versatile tablet is built for productivity, entertainment, and creativity. It features a large display, powerful performance, and enough battery life for everyday activities.",
+      "features": [
+        "Large touchscreen display",
+        "Powerful processor",
+        "Long battery life",
+        "Stylus support",
+        "Portable design"
+      ],
       "image": "tablet.png",
       "stock": 10
     },
@@ -99,8 +129,14 @@
       "ram": "",
       "warranty": 2,
       "description_short": "Take your music anywhere with this compact and powerful portable speaker.",
-      "description_full": "",
-      "features": "",
+      "description_full": "This portable speaker provides high-quality sound in a compact design. It is perfect for outdoor activities, parties, and everyday listening thanks to its wireless connectivity and durable construction.",
+      "features": [
+        "Bluetooth connectivity",
+        "High quality sound",
+        "Water resistant design",
+        "Portable size",
+        "Long battery life"
+      ],
       "image": "portable_speaker.png",
       "stock": 10
     },
@@ -112,9 +148,15 @@
       "year": 2021,
       "ram": "",
       "warranty": 2,
-      "description_short": "Stay connected  with this high-quality web camera.",
-      "description_full": "",
-      "features": "",
+      "description_short": "Stay connected with this high-quality web camera.",
+      "description_full": "This web camera delivers clear video quality for online meetings, streaming, and communication. It is easy to use and provides reliable performance for both work and personal use.",
+      "features": [
+        "Full HD video",
+        "Built-in microphone",
+        "Automatic light correction",
+        "Easy USB connection",
+        "Privacy cover"
+      ],
       "image": "webcam.png",
       "stock": 10
     }

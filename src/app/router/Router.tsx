@@ -3,6 +3,7 @@ import MainLayout from "../../layouts/MainLayout";
 import HomePage from "../../pages/HomePage";
 import ContactPage from "@/pages/ContactPage";
 import ProductsPage from "@/pages/ProductsPage";
+import ProductDetailsPage from "@/pages/ProductDetailsPage";
 
 function Router() {
   return (
@@ -11,6 +12,7 @@ function Router() {
         <Route path="/" element={<HomePage />} />
         <Route path="/contacts" element={<ContactPage />} />
         <Route path="/products" element={<ProductsPage />} />
+        <Route path="/products/:id" element={<ProductDetailsPage />} />
       </Route>
     </Routes>
   );
