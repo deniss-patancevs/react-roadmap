@@ -22,7 +22,8 @@ const CounterButton = styled.button<{ $variant: "decrease" | "increase" }>`
   align-items: center;
   justify-content: center;
 
-  border: none;
+  border: 1px solid #00000033;
+  border-radius: ${({ theme }) => theme.borderRadius.small};
   cursor: pointer;
 
   background: ${({ $variant, theme }) =>
@@ -35,12 +36,14 @@ const CounterButton = styled.button<{ $variant: "decrease" | "increase" }>`
 const Quantity = styled.span`
   width: 45px;
   height: 48px;
+  margin: 0 27px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  font-size: ${({ theme }) => theme.typography.bodySmall.fontSize};
+  font-size: ${({ theme }) => theme.typography.heading.fontSize};
+  font-weight: ${({ theme }) => theme.typography.heading.fontWeight};
   color: ${({ theme }) => theme.colors.text};
 `;
 

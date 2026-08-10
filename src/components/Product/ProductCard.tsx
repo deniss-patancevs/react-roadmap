@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Button, { ButtonLink } from "@/components/UI/Button";
+import { Link } from "react-router";
 import type { Product } from "@/types/product";
 
 interface ProductCardProps {
@@ -56,6 +57,12 @@ const Description = styled.p`
   letter-spacing: 0.25px;
 `;
 
+const ProductLink = styled(Link)`
+  display: block;
+  color: inherit;
+  text-decoration: none;
+`;
+
 const Actions = styled.div`
   display: flex;
   justify-content: center;
@@ -66,27 +73,26 @@ const Actions = styled.div`
 
 function ProductCard({ product }: ProductCardProps) {
   const imgUrl = `/images/products/${product.image}`;
+  const productUrl = `/products/${product.id}`;
+
   return (
     <Card>
-      <Header>
-        <Name>{product.name}</Name>
+      <ProductLink to={productUrl}>
+        <Header>
+          <Name>{product.name}</Name>
 
-        <Price>
-          {product.price}
-          {product.currency}
-        </Price>
-      </Header>
+          <Price>
+            {product.price}
+            {product.currency}
+          </Price>
+        </Header>
 
-      <ProductImage src={imgUrl} alt={product.name} />
+        <ProductImage src={imgUrl} alt={product.name} />
 
-      <Description>{product.description_short}</Description>
-
+        <Description>{product.description_short}</Description>
+      </ProductLink>
       <Actions>
-        <ButtonLink
-          to={`/products/${product.id}`}
-          variant="outline"
-          size="small"
-        >
+        <ButtonLink to={productUrl} variant="outline" size="small">
           Details
         </ButtonLink>
 
