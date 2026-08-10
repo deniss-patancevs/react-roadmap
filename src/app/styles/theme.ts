@@ -28,6 +28,7 @@ export const theme = {
 
   borderRadius: {
     small: "6px",
+    medium: "8px",
   },
 
   // Typography

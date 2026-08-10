@@ -5,6 +5,8 @@ import ButtonLink from "@/components/Button/ButtonLink";
 import type { Product } from "@/types/product";
 import { useAppDispatch } from "@/app/store/hooks";
 import { addToCart } from "@/features/cart/cartSlice";
+import { useState } from "react";
+import AddToCartModal from "../Modal/AddToCartModal";
 
 interface ProductCardDetailsProps {
   product: Product;
@@ -107,6 +109,7 @@ const ProductImage = styled.img`
 `;
 
 function ProductCardDetails({ product }: ProductCardDetailsProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const imageUrl = `/images/products/${product.image}`;
   const dispatch = useAppDispatch();
 
@@ -159,7 +162,13 @@ function ProductCardDetails({ product }: ProductCardDetailsProps) {
               Menu
             </ButtonLink>
 
-            <Button size="medium" onClick={() => dispatch(addToCart(product))}>
+            <Button
+              size="medium"
+              onClick={() => {
+                dispatch(addToCart(product));
+                setIsModalOpen(true);
+              }}
+            >
               Add to Cart
             </Button>
           </Actions>
@@ -167,6 +176,11 @@ function ProductCardDetails({ product }: ProductCardDetailsProps) {
 
         {product.image && <ProductImage src={imageUrl} alt={product.name} />}
       </Content>
+      {/* Modal */}
+      <AddToCartModal
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </Container>
   );
 }
