@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Button from "@/components/Button";
 import ButtonLink from "@/components/Button/ButtonLink";
 import type { Product } from "@/types/product";
+import { useAppDispatch } from "@/app/store/hooks";
+import { addToCart } from "@/features/cart/cartSlice";
 
 interface ProductCardDetailsProps {
   product: Product;
@@ -106,6 +108,7 @@ const ProductImage = styled.img`
 
 function ProductCardDetails({ product }: ProductCardDetailsProps) {
   const imageUrl = `/images/products/${product.image}`;
+  const dispatch = useAppDispatch();
 
   return (
     <Container>
@@ -156,7 +159,9 @@ function ProductCardDetails({ product }: ProductCardDetailsProps) {
               Menu
             </ButtonLink>
 
-            <Button size="medium">Add to Cart</Button>
+            <Button size="medium" onClick={() => dispatch(addToCart(product))}>
+              Add to Cart
+            </Button>
           </Actions>
         </Info>
 

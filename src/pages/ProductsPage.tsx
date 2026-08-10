@@ -4,7 +4,7 @@ import type { Product } from "@/types/product";
 import { useEffect, useState } from "react";
 import ProductCard from "@/components/Product/ProductCard";
 import Button from "@/components/Button";
-import plusIcon from "@/assets/icons/plusIcon.svg";
+import AddIcon from "@mui/icons-material/Add";
 
 // Styles
 const Container = styled.main`
@@ -17,12 +17,6 @@ const Container = styled.main`
 const Actions = styled.div`
   display: flex;
   justify-content: flex-end;
-`;
-
-const ButtonIcon = styled.img`
-  width: 20px;
-  height: 20px;
-  margin-right: 12px;
 `;
 
 const Grid = styled.section`
@@ -54,7 +48,7 @@ function ProductsPage() {
     <Container>
       <Actions>
         <Button>
-          <ButtonIcon src={plusIcon} alt="" />
+          <AddIcon sx={{ fontSize: 32 }} />
           <span>ADD NEW PRODUCT</span>
         </Button>
       </Actions>

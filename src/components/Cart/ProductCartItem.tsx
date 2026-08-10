@@ -1,5 +1,7 @@
 import styled from "styled-components";
-
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import DeleteIcon from "@mui/icons-material/Delete";
 // import Button from "@/components/Button";
 import type { Product } from "@/types/product";
 
@@ -117,12 +119,14 @@ function ProductCart({
         </Text>
       </Info>
       <Counter>
-        <CounterButton onClick={onDecrease}>-</CounterButton>
+        <CounterButton onClick={onDecrease}>
+          {quantity === 1 ? <DeleteIcon /> : <RemoveIcon />}
+        </CounterButton>
 
         <Quantity>{quantity}</Quantity>
 
         <CounterButton $variant="increase" onClick={onIncrease}>
-          +
+          <AddIcon />
         </CounterButton>
       </Counter>
       <TotalPrice>

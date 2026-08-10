@@ -1,5 +1,7 @@
 import { Link } from "react-router";
 import styled from "styled-components";
+import { useAppSelector } from "@/app/store/hooks";
+import { selectCartQuantity } from "@/features/cart/cartSelectors";
 import notebookLogo from "@/assets/icons/notebook.svg";
 
 // Styles
@@ -51,6 +53,7 @@ const NavLink = styled(Link)`
 
 // Component
 function Header() {
+  const cartItemsCount = useAppSelector(selectCartQuantity);
   return (
     <StyledHeader>
       <Container>
@@ -63,7 +66,9 @@ function Header() {
           <NavLink to="/">Home</NavLink>
           <NavLink to="/products">Products</NavLink>
           <NavLink to="/contacts">Contact us</NavLink>
-          <NavLink to="/cart">Cart</NavLink>
+          <NavLink to="/cart">
+            Cart{cartItemsCount > 0 && ` (${cartItemsCount})`}
+          </NavLink>
         </Nav>
       </Container>
     </StyledHeader>

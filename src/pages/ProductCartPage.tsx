@@ -1,7 +1,10 @@
 import styled from "styled-components";
-
+// import ButtonLink from "@/components/Button/ButtonLink";
 import ProductCartItem from "@/components/Cart/ProductCartItem";
+import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
+import { decreaseQuantity, increaseQuantity } from "@/features/cart/cartSlice";
 
+// Styles
 const Container = styled.main`
   max-width: 1296px;
 
@@ -27,44 +30,57 @@ const CartList = styled.div`
   margin-top: 40px;
 `;
 
+const EmptyCart = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+`;
+
+const EmptyMessage = styled.p`
+  margin: 0;
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: ${({ theme }) => theme.typography.subheading.fontSize};
+  font-weight: ${({ theme }) => theme.typography.subheading.fontWeight};
+  line-height: ${({ theme }) => theme.typography.subheading.lineHeight};
+`;
+
+// const ProductsLink = styled(ButtonLink)`
+//   margin-top: 32px;
+// `;
+
+// Component
 function ProductCartPage() {
-  const product = {
-    id: 1,
-    name: "Smartwatch",
-    price: 199.99,
-    currency: "€",
-    year: 2022,
-    ram: "1GB",
-    warranty: 2,
-    description_short:
-      "Stay connected on the go with this sleek and versatile smartwatch.",
-    description_full:
-      "This smartwatch offers a range of features including fitness tracking, notifications, and voice commands. Its long-lasting battery and durable design make it perfect for everyday wear.",
-    features: [
-      "Fitness tracking",
-      "Notifications",
-      "Voice commands",
-      "Long battery life",
-      "Durable design",
-    ],
-    image: "smartwatch.png",
-    stock: 10,
-  };
-  const quantity = 1;
+  const dispatch = useAppDispatch();
+  const cartItems = useAppSelector((state) => state.cart.items);
+
+  if (cartItems.length === 0) {
+    return (
+      <Container>
+        <EmptyCart>
+          <EmptyMessage> Your shopping cart is empty </EmptyMessage>
+        </EmptyCart>
+      </Container>
+    );
+  }
+
   return (
     <Container>
       <Title>Shopping Cart</Title>
-
       <CartList>
-        <ProductCartItem
-          product={product}
-          quantity={quantity}
-          onDecrease={() => console.log("decrease")}
-          onIncrease={() => console.log("increase")}
-        />
+        {cartItems.map(({ product, quantity }) => (
+          <ProductCartItem
+            key={product.id}
+            product={product}
+            quantity={quantity}
+            onIncrease={() => dispatch(increaseQuantity(product.id))}
+            onDecrease={() => dispatch(decreaseQuantity(product.id))}
+          />
+        ))}
       </CartList>
     </Container>
   );
 }
-
 export default ProductCartPage;
