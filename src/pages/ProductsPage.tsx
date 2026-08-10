@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import ProductCard from "@/components/Product/ProductCard";
 import Button from "@/components/UI/Button";
 import AddIcon from "@mui/icons-material/Add";
+import AddProductModal from "@/components/Modal/AddProductModal";
 
 // Styles
 const Container = styled.main`
@@ -30,6 +31,7 @@ const Grid = styled.section`
 // Component
 function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
 
   useEffect(() => {
     async function loadProducts() {
@@ -44,10 +46,14 @@ function ProductsPage() {
     loadProducts();
   }, []);
 
+  const handleProductAdded = (product: Product) => {
+    setProducts((currentProducts) => [...currentProducts, product]);
+  };
+
   return (
     <Container>
       <Actions>
-        <Button>
+        <Button onClick={() => setIsAddProductModalOpen(true)}>
           <AddIcon sx={{ fontSize: 32 }} />
           <span>ADD NEW PRODUCT</span>
         </Button>
@@ -58,6 +64,13 @@ function ProductsPage() {
           <ProductCard key={product.id} product={product} />
         ))}
       </Grid>
+
+      {/* Modal */}
+      <AddProductModal
+        open={isAddProductModalOpen}
+        onClose={() => setIsAddProductModalOpen(false)}
+        onProductAdded={handleProductAdded}
+      />
     </Container>
   );
 }

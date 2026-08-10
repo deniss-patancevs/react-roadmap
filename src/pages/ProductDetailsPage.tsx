@@ -5,8 +5,6 @@ import styled from "styled-components";
 import { getProduct } from "@/api/products";
 import ProductCardDetails from "@/components/Product/ProductCardDetails";
 import type { Product } from "@/types/product";
-// import { useAppSelector } from "@/app/store/hooks";
-// import { selectCartItemById } from "@/features/cart/cartSelectors";
 
 const Container = styled.main`
   max-width: 1296px;
@@ -19,10 +17,6 @@ const Container = styled.main`
 function ProductDetailsPage() {
   const { id } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
-  // const cartItem = useAppSelector((state) =>
-  //   selectCartItemById(state, product.id),
-  // );
-  // const quantity = cartItem?.quantity ?? 0;
 
   useEffect(() => {
     if (!id) return;

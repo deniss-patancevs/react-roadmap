@@ -72,7 +72,7 @@ const Actions = styled.div`
 `;
 
 function ProductCard({ product }: ProductCardProps) {
-  const imgUrl = `/images/products/${product.image}`;
+  const imgUrl = `/images/products/${product.image || "default.png"}`;
   const productUrl = `/products/${product.id}`;
 
   return (

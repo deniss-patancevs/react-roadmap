@@ -9,3 +9,12 @@ export function getProducts() {
 export function getProduct(id: number) {
   return api<Product>(`/products/${id}`);
 }
+
+export async function createProduct(
+  product: Omit<Product, "id">,
+): Promise<Product> {
+  return api<Product>("/products", {
+    method: "POST",
+    body: product,
+  });
+}

@@ -13,20 +13,15 @@ const Container = styled.main`
 
 const Title = styled.h1`
   margin: 0;
-
   color: ${({ theme }) => theme.colors.primary};
-
   font-size: ${({ theme }) => theme.typography.subheading.fontSize};
-
   font-weight: ${({ theme }) => theme.typography.subheading.fontWeight};
 `;
 
 const CartList = styled.div`
   display: flex;
   flex-direction: column;
-
   gap: 32px;
-
   margin-top: 40px;
 `;
 
