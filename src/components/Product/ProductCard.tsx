@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Button, { ButtonLink } from "@/components/Button";
+import Button, { ButtonLink } from "@/components/UI/Button";
 import type { Product } from "@/types/product";
 
 interface ProductCardProps {

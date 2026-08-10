@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import DeleteIcon from "@mui/icons-material/Delete";
-// import Button from "@/components/Button";
+import QuantityCounter from "@/components/QuantityCounter";
 import type { Product } from "@/types/product";
 
 interface ProductCartProps {
@@ -51,40 +48,6 @@ const Text = styled.p`
   line-height: ${({ theme }) => theme.typography.bodySmall.lineHeight};
 `;
 
-const Counter = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const CounterButton = styled.button<{
-  $variant?: "increase";
-}>`
-  width: 45px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(0, 0, 0, 0.16);
-  border-radius: 6px;
-  cursor: pointer;
-  background: ${({ $variant, theme }) =>
-    $variant === "increase" ? theme.colors.primary : "transparent"};
-  color: ${({ $variant, theme }) =>
-    $variant === "increase" ? theme.colors.background : theme.colors.primary};
-  font-size: 24px;
-`;
-
-const Quantity = styled.span`
-  width: 45px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 27px;
-  font-size: ${({ theme }) => theme.typography.heading.fontSize};
-  font-weight: ${({ theme }) => theme.typography.heading.fontWeight};
-`;
-
 const TotalPrice = styled.p`
   margin: 0;
   color: ${({ theme }) => theme.colors.text};
@@ -118,17 +81,11 @@ function ProductCart({
           {product.currency}
         </Text>
       </Info>
-      <Counter>
-        <CounterButton onClick={onDecrease}>
-          {quantity === 1 ? <DeleteIcon /> : <RemoveIcon />}
-        </CounterButton>
-
-        <Quantity>{quantity}</Quantity>
-
-        <CounterButton $variant="increase" onClick={onIncrease}>
-          <AddIcon />
-        </CounterButton>
-      </Counter>
+      <QuantityCounter
+        quantity={quantity}
+        onIncrease={() => onIncrease()}
+        onDecrease={() => onDecrease()}
+      />
       <TotalPrice>
         Total: {total.toFixed(2)}
         {product.currency}

@@ -1,12 +1,18 @@
 import styled from "styled-components";
-
-import Button from "@/components/Button";
-import ButtonLink from "@/components/Button/ButtonLink";
-import type { Product } from "@/types/product";
-import { useAppDispatch } from "@/app/store/hooks";
-import { addToCart } from "@/features/cart/cartSlice";
 import { useState } from "react";
+import Button from "@/components/UI/Button";
+import ButtonLink from "@/components/UI/Button/ButtonLink";
+import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
+import QuantityCounter from "@/components/QuantityCounter";
 import AddToCartModal from "../Modal/AddToCartModal";
+import {
+  addToCart,
+  decreaseQuantity,
+  increaseQuantity,
+  removeFromCart,
+} from "@/features/cart/cartSlice";
+import type { Product } from "@/types/product";
+import { selectCartItemById } from "@/features/cart/cartSelectors";
 
 interface ProductCardDetailsProps {
   product: Product;
@@ -110,8 +116,30 @@ const ProductImage = styled.img`
 
 function ProductCardDetails({ product }: ProductCardDetailsProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const imageUrl = `/images/products/${product.image}`;
   const dispatch = useAppDispatch();
+  const cartItem = useAppSelector((state) =>
+    selectCartItemById(state, product.id),
+  );
+  const quantity = cartItem?.quantity ?? 0;
+  const imageUrl = `/images/products/${product.image}`;
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(product));
+    setIsModalOpen(true);
+  };
+
+  const handleIncrease = () => {
+    dispatch(increaseQuantity(product.id));
+  };
+
+  const handleDecrease = () => {
+    if (quantity === 1) {
+      dispatch(removeFromCart(product.id));
+      return;
+    }
+
+    dispatch(decreaseQuantity(product.id));
+  };
 
   return (
     <Container>
@@ -162,15 +190,17 @@ function ProductCardDetails({ product }: ProductCardDetailsProps) {
               Menu
             </ButtonLink>
 
-            <Button
-              size="medium"
-              onClick={() => {
-                dispatch(addToCart(product));
-                setIsModalOpen(true);
-              }}
-            >
-              Add to Cart
-            </Button>
+            {quantity === 0 ? (
+              <Button size="medium" onClick={handleAddToCart}>
+                Add to Cart
+              </Button>
+            ) : (
+              <QuantityCounter
+                quantity={quantity}
+                onIncrease={handleIncrease}
+                onDecrease={handleDecrease}
+              />
+            )}
           </Actions>
         </Info>
 

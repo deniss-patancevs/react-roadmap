@@ -3,7 +3,7 @@ import { getProducts } from "@/api/products";
 import type { Product } from "@/types/product";
 import { useEffect, useState } from "react";
 import ProductCard from "@/components/Product/ProductCard";
-import Button from "@/components/Button";
+import Button from "@/components/UI/Button";
 import AddIcon from "@mui/icons-material/Add";
 
 // Styles

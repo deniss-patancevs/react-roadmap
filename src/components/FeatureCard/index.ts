@@ -1,3 +1,1 @@
-import FeatureCard from "./FeatureCard";
-
-export default FeatureCard;
+export { default } from "./FeatureCard";

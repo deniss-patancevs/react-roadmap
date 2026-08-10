@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ButtonLink } from "@/components/Button";
+import { ButtonLink } from "@/components/UI/Button";
 import heroImage from "@/assets/images/hero image.png";
 
 const HeroSection = styled.section`
