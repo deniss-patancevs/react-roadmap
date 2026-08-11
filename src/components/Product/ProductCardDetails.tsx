@@ -22,6 +22,7 @@ import { deleteProduct } from "@/api/products";
 
 interface ProductCardDetailsProps {
   product: Product;
+  onProductUpdated: (product: Product) => void;
 }
 
 const Container = styled.article`
@@ -120,7 +121,10 @@ const ProductImage = styled.img`
   object-fit: contain;
 `;
 
-function ProductCardDetails({ product }: ProductCardDetailsProps) {
+function ProductCardDetails({
+  product,
+  onProductUpdated,
+}: ProductCardDetailsProps) {
   const navigate = useNavigate();
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -234,7 +238,10 @@ function ProductCardDetails({ product }: ProductCardDetailsProps) {
         mode="edit"
         product={product}
         onClose={() => setIsEditModalOpen(false)}
-        onSubmit={() => setIsEditModalOpen(false)}
+        onSubmit={(updatedProduct) => {
+          onProductUpdated(updatedProduct);
+          setIsEditModalOpen(false);
+        }}
       />
       <AddToCartModal
         open={isAddToCartOpen}

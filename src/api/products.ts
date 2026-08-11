@@ -6,7 +6,7 @@ export function getProducts() {
   return api<Product[]>("/products");
 }
 
-export function getProduct(id: number) {
+export function getProduct(id: string) {
   return api<Product>(`/products/${id}`);
 }
 
@@ -20,7 +20,7 @@ export async function createProduct(
 }
 
 export function updateProduct(
-  id: number,
+  id: string,
   product: Omit<Product, "id">,
 ): Promise<Product> {
   return api<Product>(`/products/${id}`, {
@@ -29,7 +29,7 @@ export function updateProduct(
   });
 }
 
-export function deleteProduct(id: number | string) {
+export function deleteProduct(id: string) {
   return api(`/products/${id}`, {
     method: "DELETE",
   });

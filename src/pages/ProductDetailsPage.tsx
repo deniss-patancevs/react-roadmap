@@ -19,10 +19,9 @@ function ProductDetailsPage() {
   const [product, setProduct] = useState<Product | null>(null);
 
   useEffect(() => {
-    if (!id) return;
-
     async function loadProduct() {
-      const data = await getProduct(Number(id));
+      if (!id) return;
+      const data = await getProduct(id);
 
       setProduct(data);
     }
@@ -30,13 +29,17 @@ function ProductDetailsPage() {
     loadProduct();
   }, [id]);
 
+
   if (!product) {
     return <Container>Loading...</Container>;
   }
 
   return (
     <Container>
-      <ProductCardDetails product={product} />
+      <ProductCardDetails
+        product={product}
+        onProductUpdated={setProduct}
+      />
     </Container>
   );
 }

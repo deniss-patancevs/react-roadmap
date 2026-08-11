@@ -1,28 +1,95 @@
 .
 ├── public
+│   ├── images
+│   │   └── products
+│   │       ├── default.png
+│   │       ├── earbuds.png
+│   │       ├── laptop.png
+│   │       ├── portable_speaker.png
+│   │       ├── smart_assistant.png
+│   │       ├── smartphone.png
+│   │       ├── smartwatch.png
+│   │       ├── tablet.png
+│   │       └── webcam.png
 │   └── favicon.svg
+├── server
+│   └── db.json
 ├── src
+│   ├── api
+│   │   ├── client.ts
+│   │   └── products.ts
 │   ├── app
-│   │   └── router
-│   │       └── Router.tsx
+│   │   ├── router
+│   │   │   └── Router.tsx
+│   │   ├── store
+│   │   │   ├── hooks.ts
+│   │   │   └── store.ts
+│   │   └── styles
+│   │       ├── GlobalStyles.ts
+│   │       ├── styled.d.ts
+│   │       └── theme.ts
 │   ├── assets
-│   │   └── icons
-│   │       └── notebook.svg
+│   │   ├── icons
+│   │   │   ├── devices_wearables.svg
+│   │   │   ├── email.svg
+│   │   │   ├── headphones.svg
+│   │   │   ├── light_bulb.svg
+│   │   │   ├── notebook.svg
+│   │   │   ├── plusIcon.svg
+│   │   │   └── wifi.svg
+│   │   └── images
+│   │       └── hero image.png
 │   ├── components
+│   │   ├── Cart
+│   │   │   └── ProductCartItem.tsx
+│   │   ├── FeatureCard
+│   │   │   ├── FeatureCard.tsx
+│   │   │   └── index.ts
 │   │   ├── Footer
 │   │   │   ├── Footer.tsx
 │   │   │   └── index.tsx
-│   │   └── Header
-│   │       ├── Header.tsx
-│   │       └── index.tsx
+│   │   ├── Form
+│   │   │   ├── InputField.tsx
+│   │   │   └── TextareaField.tsx
+│   │   ├── Header
+│   │   │   ├── Header.tsx
+│   │   │   └── index.tsx
+│   │   ├── Modal
+│   │   │   ├── AddToCartModal.tsx
+│   │   │   └── ProductModal.tsx
+│   │   ├── Product
+│   │   │   ├── ProductCardDetails.tsx
+│   │   │   ├── ProductCard.tsx
+│   │   │   ├── ProductMenuButton.tsx
+│   │   │   └── ProductMenu.tsx
+│   │   ├── QuantityCounter
+│   │   │   ├── index.ts
+│   │   │   └── QuantityCounter.tsx
+│   │   └── UI
+│   │       └── Button
+│   │           ├── ButtonLink.tsx
+│   │           ├── Button.styles.ts
+│   │           ├── Button.tsx
+│   │           └── index.ts
 │   ├── features
+│   │   └── cart
+│   │       ├── cartSelectors.ts
+│   │       └── cartSlice.ts
 │   ├── layouts
 │   │   └── MainLayout.tsx
 │   ├── pages
-│   │   └── HomePage.tsx
-│   ├── App.css
+│   │   ├── ContactPage.tsx
+│   │   ├── HomePage.tsx
+│   │   ├── ProductCartPage.tsx
+│   │   ├── ProductDetailsPage.tsx
+│   │   └── ProductsPage.tsx
+│   ├── sections
+│   │   ├── Features.tsx
+│   │   ├── GoogleMap.tsx
+│   │   └── Hero.tsx
+│   ├── types
+│   │   └── product.ts
 │   ├── App.tsx
-│   ├── index.css
 │   └── main.tsx
 ├── eslint.config.js
 ├── .gitignore
@@ -36,4 +103,4 @@
 ├── tsconfig.node.json
 └── vite.config.ts
 
-13 directories, 24 files
+31 directories, 73 files
