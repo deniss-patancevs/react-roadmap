@@ -18,3 +18,13 @@ export async function createProduct(
     body: product,
   });
 }
+
+export function updateProduct(
+  id: number,
+  product: Omit<Product, "id">,
+): Promise<Product> {
+  return api<Product>(`/products/${id}`, {
+    method: "PUT",
+    body: product,
+  });
+}

@@ -7,7 +7,6 @@ import { decreaseQuantity, increaseQuantity } from "@/features/cart/cartSlice";
 // Styles
 const Container = styled.main`
   max-width: 1296px;
-
   margin: 70px auto;
 `;
 

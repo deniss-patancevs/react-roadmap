@@ -1,14 +1,18 @@
 import { useState } from "react";
 import styled from "styled-components";
+
+import { createProduct, updateProduct } from "@/api/products";
 import type { Product } from "@/types/product";
+
 import InputField from "../Form/InputField";
 import TextareaField from "../Form/TextareaField";
-import { createProduct } from "@/api/products";
 
-interface AddProductModalProps {
+interface ProductModalProps {
   open: boolean;
+  mode: "add" | "edit";
+  product?: Product;
   onClose: () => void;
-  onProductAdded: (product: Product) => void;
+  onSubmit: (product: Product) => void;
 }
 
 interface FormData {
@@ -128,12 +132,34 @@ const ErrorMessage = styled.p`
   line-height: 20px;
 `;
 
-function AddProductModal({
+const productToFormData = (product: Product): FormData => ({
+  name: product.name,
+  price: String(product.price),
+  currency: product.currency,
+  year: product.year ? String(product.year) : "",
+  ram: product.ram,
+  warranty: product.warranty ? String(product.warranty) : "",
+  description_short: product.description_short,
+  description_full: product.description_full,
+  features: product.features.join("\n"),
+  image: product.image,
+  stock: product.stock ? String(product.stock) : "",
+});
+
+function ProductModal({
   open,
+  mode,
+  product,
   onClose,
-  onProductAdded,
-}: AddProductModalProps) {
-  const [formData, setFormData] = useState(initialFormData);
+  onSubmit,
+}: ProductModalProps) {
+  const [formData, setFormData] = useState<FormData>(() => {
+    if (mode === "edit" && product) {
+      return productToFormData(product);
+    }
+
+    return initialFormData;
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
@@ -152,7 +178,7 @@ function AddProductModal({
     }));
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     setIsSubmitting(true);
@@ -160,14 +186,12 @@ function AddProductModal({
 
     try {
       const productData = {
-        id: 34,
         name: formData.name,
         price: Number(formData.price),
         currency: formData.currency,
         year: Number(formData.year),
         ram: formData.ram,
         warranty: Number(formData.warranty),
-
         description_short: formData.description_short,
         description_full: formData.description_full,
 
@@ -180,29 +204,45 @@ function AddProductModal({
         stock: Number(formData.stock),
       };
 
-      const product = await createProduct(productData);
+      let savedProduct: Product;
 
-      onProductAdded(product);
+      if (mode === "edit" && product) {
+        savedProduct = await updateProduct(product.id, productData);
+      } else {
+        savedProduct = await createProduct(productData);
+      }
+
+      onSubmit(savedProduct);
 
       setFormData(initialFormData);
       onClose();
     } catch (error) {
       console.error(error);
-      setError("Failed to add product. Please try again.");
+
+      setError(
+        mode === "edit"
+          ? "Failed to update product. Please try again."
+          : "Failed to add product. Please try again.",
+      );
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleClose = () => {
+    if (isSubmitting) return;
+
     setFormData(initialFormData);
+    setError("");
     onClose();
   };
+
+  const isEditMode = mode === "edit";
 
   return (
     <Overlay onMouseDown={handleClose}>
       <Modal onMouseDown={(event) => event.stopPropagation()}>
-        <Title>Add New Product</Title>
+        <Title>{isEditMode ? "Edit Product" : "Add New Product"}</Title>
 
         <Form onSubmit={handleSubmit}>
           <InputField
@@ -255,6 +295,7 @@ function AddProductModal({
             <InputField
               label="Warranty"
               name="warranty"
+              type="number"
               min="0"
               value={formData.warranty}
               onChange={handleChange}
@@ -294,8 +335,8 @@ function AddProductModal({
             onChange={handleChange}
           />
 
-          {/* Error */}
           {error && <ErrorMessage>{error}</ErrorMessage>}
+
           <Actions>
             <ActionButton
               type="button"
@@ -306,7 +347,13 @@ function AddProductModal({
             </ActionButton>
 
             <ActionButton type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Adding..." : "Add Product"}
+              {isSubmitting
+                ? isEditMode
+                  ? "Updating..."
+                  : "Adding..."
+                : isEditMode
+                  ? "Save Changes"
+                  : "Add Product"}
             </ActionButton>
           </Actions>
         </Form>
@@ -315,4 +362,4 @@ function AddProductModal({
   );
 }
 
-export default AddProductModal;
+export default ProductModal;

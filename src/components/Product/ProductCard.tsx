@@ -1,10 +1,16 @@
+import { useState } from "react";
 import styled from "styled-components";
-import Button, { ButtonLink } from "@/components/UI/Button";
 import { Link } from "react-router";
+
+import { ButtonLink } from "@/components/UI/Button";
+import ProductMenuButton from "@/components/Product/ProductMenuButton";
+import ProductModal from "@/components/Modal/ProductModal";
+
 import type { Product } from "@/types/product";
 
 interface ProductCardProps {
   product: Product;
+  onProductUpdated: (product: Product) => void;
 }
 
 // Styles
@@ -12,7 +18,7 @@ const Card = styled.article`
   width: 310px;
   height: 405px;
   background: ${({ theme }) => theme.colors.background};
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   border-radius: ${({ theme }) => theme.borderRadius.small};
@@ -71,8 +77,10 @@ const Actions = styled.div`
   padding: 16px;
 `;
 
-function ProductCard({ product }: ProductCardProps) {
-  const imgUrl = `/images/products/${product.image || "default.png"}`;
+function ProductCard({ product, onProductUpdated }: ProductCardProps) {
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  const imageUrl = `/images/products/${product.image || "default.png"}`;
   const productUrl = `/products/${product.id}`;
 
   return (
@@ -87,7 +95,7 @@ function ProductCard({ product }: ProductCardProps) {
           </Price>
         </Header>
 
-        <ProductImage src={imgUrl} alt={product.name} />
+        <ProductImage src={imageUrl} alt={product.name} />
 
         <Description>{product.description_short}</Description>
       </ProductLink>
@@ -96,10 +104,26 @@ function ProductCard({ product }: ProductCardProps) {
           Details
         </ButtonLink>
 
-        <Button variant="outline" size="small">
-          Menu
-        </Button>
+        <ProductMenuButton
+          size="small"
+          variant="outline"
+          onEdit={() => setIsEditModalOpen(true)}
+          onDelete={() => console.log("delete")}
+        />
       </Actions>
+
+      {/* Modal */}
+      <ProductModal
+        key={`${product.id}-${isEditModalOpen}`}
+        open={isEditModalOpen}
+        mode="edit"
+        product={product}
+        onClose={() => setIsEditModalOpen(false)}
+        onSubmit={(updatedProduct) => {
+          onProductUpdated(updatedProduct);
+          setIsEditModalOpen(false);
+        }}
+      />
     </Card>
   );
 }

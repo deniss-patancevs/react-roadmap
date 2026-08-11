@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import ProductCard from "@/components/Product/ProductCard";
 import Button from "@/components/UI/Button";
 import AddIcon from "@mui/icons-material/Add";
-import AddProductModal from "@/components/Modal/AddProductModal";
+import ProductModal from "@/components/Modal/ProductModal";
 
 // Styles
 const Container = styled.main`
@@ -46,8 +46,12 @@ function ProductsPage() {
     loadProducts();
   }, []);
 
-  const handleProductAdded = (product: Product) => {
-    setProducts((currentProducts) => [...currentProducts, product]);
+  const handleProductUpdated = (updatedProduct: Product) => {
+    setProducts((currentProducts) =>
+      currentProducts.map((product) =>
+        product.id === updatedProduct.id ? updatedProduct : product,
+      ),
+    );
   };
 
   return (
@@ -61,15 +65,23 @@ function ProductsPage() {
 
       <Grid>
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard
+            key={product.id}
+            product={product}
+            onProductUpdated={handleProductUpdated}
+          />
         ))}
       </Grid>
 
       {/* Modal */}
-      <AddProductModal
+      <ProductModal
         open={isAddProductModalOpen}
+        mode="add"
         onClose={() => setIsAddProductModalOpen(false)}
-        onProductAdded={handleProductAdded}
+        onSubmit={(product) => {
+          setProducts((currentProducts) => [...currentProducts, product]);
+          setIsAddProductModalOpen(false);
+        }}
       />
     </Container>
   );

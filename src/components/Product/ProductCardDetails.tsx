@@ -1,18 +1,22 @@
-import styled from "styled-components";
 import { useState } from "react";
-import Button from "@/components/UI/Button";
-import ButtonLink from "@/components/UI/Button/ButtonLink";
+import styled from "styled-components";
+
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
-import QuantityCounter from "@/components/QuantityCounter";
-import AddToCartModal from "../Modal/AddToCartModal";
+import { selectCartItemById } from "@/features/cart/cartSelectors";
 import {
   addToCart,
   decreaseQuantity,
   increaseQuantity,
   removeFromCart,
 } from "@/features/cart/cartSlice";
+
+import ProductModal from "@/components/Modal/ProductModal";
+import AddToCartModal from "@/components/Modal/AddToCartModal";
+import Button from "@/components/UI/Button";
+import QuantityCounter from "@/components/QuantityCounter";
+import ProductMenuButton from "@/components/Product/ProductMenuButton";
+
 import type { Product } from "@/types/product";
-import { selectCartItemById } from "@/features/cart/cartSelectors";
 
 interface ProductCardDetailsProps {
   product: Product;
@@ -115,17 +119,20 @@ const ProductImage = styled.img`
 `;
 
 function ProductCardDetails({ product }: ProductCardDetailsProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isAddToCartOpen, setIsAddToCartOpen] = useState(false);
+
   const dispatch = useAppDispatch();
   const cartItem = useAppSelector((state) =>
     selectCartItemById(state, product.id),
   );
+
   const quantity = cartItem?.quantity ?? 0;
-  const imageUrl = `/images/products/${product.image}`;
+  const imageUrl = `/images/products/${product.image || "default.png"}`;
 
   const handleAddToCart = () => {
     dispatch(addToCart(product));
-    setIsModalOpen(true);
+    setIsAddToCartOpen(true);
   };
 
   const handleIncrease = () => {
@@ -137,7 +144,6 @@ function ProductCardDetails({ product }: ProductCardDetailsProps) {
       dispatch(removeFromCart(product.id));
       return;
     }
-
     dispatch(decreaseQuantity(product.id));
   };
 
@@ -186,9 +192,10 @@ function ProductCardDetails({ product }: ProductCardDetailsProps) {
           )}
 
           <Actions>
-            <ButtonLink to="/products" variant="outline" size="medium">
-              Menu
-            </ButtonLink>
+            <ProductMenuButton
+              onEdit={() => setIsEditModalOpen(true)}
+              onDelete={() => console.log("delete")}
+            />
 
             {quantity === 0 ? (
               <Button size="medium" onClick={handleAddToCart}>
@@ -204,12 +211,24 @@ function ProductCardDetails({ product }: ProductCardDetailsProps) {
           </Actions>
         </Info>
 
-        {product.image && <ProductImage src={imageUrl} alt={product.name} />}
+        <ProductImage src={imageUrl} alt={product.name} />
       </Content>
+
       {/* Modal */}
+      <ProductModal
+        key={`${product.id}-${isEditModalOpen}`}
+        open={isEditModalOpen}
+        mode="edit"
+        product={product}
+        onClose={() => setIsEditModalOpen(false)}
+        onSubmit={(updatedProduct) => {
+          console.log("Updated product:", updatedProduct);
+          setIsEditModalOpen(false);
+        }}
+      />
       <AddToCartModal
-        open={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        open={isAddToCartOpen}
+        onClose={() => setIsAddToCartOpen(false)}
       />
     </Container>
   );
