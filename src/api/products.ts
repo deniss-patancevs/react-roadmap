@@ -28,3 +28,9 @@ export function updateProduct(
     body: product,
   });
 }
+
+export function deleteProduct(id: number | string) {
+  return api(`/products/${id}`, {
+    method: "DELETE",
+  });
+}

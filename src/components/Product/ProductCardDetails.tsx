@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router";
 
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { selectCartItemById } from "@/features/cart/cartSelectors";
@@ -17,6 +18,7 @@ import QuantityCounter from "@/components/QuantityCounter";
 import ProductMenuButton from "@/components/Product/ProductMenuButton";
 
 import type { Product } from "@/types/product";
+import { deleteProduct } from "@/api/products";
 
 interface ProductCardDetailsProps {
   product: Product;
@@ -119,6 +121,8 @@ const ProductImage = styled.img`
 `;
 
 function ProductCardDetails({ product }: ProductCardDetailsProps) {
+  const navigate = useNavigate();
+
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isAddToCartOpen, setIsAddToCartOpen] = useState(false);
 
@@ -145,6 +149,15 @@ function ProductCardDetails({ product }: ProductCardDetailsProps) {
       return;
     }
     dispatch(decreaseQuantity(product.id));
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteProduct(product.id);
+      navigate("/products");
+    } catch (error) {
+      console.error("Failed to delete product:", error);
+    }
   };
 
   return (
@@ -194,7 +207,7 @@ function ProductCardDetails({ product }: ProductCardDetailsProps) {
           <Actions>
             <ProductMenuButton
               onEdit={() => setIsEditModalOpen(true)}
-              onDelete={() => console.log("delete")}
+              onDelete={handleDelete}
             />
 
             {quantity === 0 ? (
@@ -221,10 +234,7 @@ function ProductCardDetails({ product }: ProductCardDetailsProps) {
         mode="edit"
         product={product}
         onClose={() => setIsEditModalOpen(false)}
-        onSubmit={(updatedProduct) => {
-          console.log("Updated product:", updatedProduct);
-          setIsEditModalOpen(false);
-        }}
+        onSubmit={() => setIsEditModalOpen(false)}
       />
       <AddToCartModal
         open={isAddToCartOpen}

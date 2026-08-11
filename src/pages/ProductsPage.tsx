@@ -54,6 +54,12 @@ function ProductsPage() {
     );
   };
 
+  const handleProductDeleted = (productId: number | string) => {
+    setProducts((currentProducts) =>
+      currentProducts.filter((product) => product.id !== productId),
+    );
+  };
+
   return (
     <Container>
       <Actions>
@@ -69,6 +75,7 @@ function ProductsPage() {
             key={product.id}
             product={product}
             onProductUpdated={handleProductUpdated}
+            onProductDeleted={handleProductDeleted}
           />
         ))}
       </Grid>
