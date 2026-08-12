@@ -1,12 +1,14 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { getProducts } from "@/api/products";
+import { getProducts, deleteProduct } from "@/api/products";
 import ProductCard from "@/components/Product/ProductCard";
 import Button from "@/components/UI/Button";
 import AddIcon from "@mui/icons-material/Add";
 import ProductModal from "@/components/Modal/ProductModal";
+
+import type { Product } from "@/types/product";
 
 // Styles
 const Container = styled.main`
@@ -32,7 +34,9 @@ const Grid = styled.section`
 // Component
 function ProductsPage() {
   const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
+  const queryClient = useQueryClient();
 
+  // Get all products
   const {
     data: products = [],
     isLoading,
@@ -42,6 +46,21 @@ function ProductsPage() {
     queryKey: ["products"],
     queryFn: getProducts,
   });
+
+  // Delete product
+  const deleteProductMutation = useMutation({
+    mutationFn: deleteProduct,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["products"],
+      });
+    },
+  });
+
+  const handleDelete = (id: Product["id"]) => {
+    deleteProductMutation.mutate(id);
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -62,7 +81,11 @@ function ProductsPage() {
 
       <Grid>
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard
+            key={product.id}
+            product={product}
+            onDelete={handleDelete}
+          />
         ))}
       </Grid>
 

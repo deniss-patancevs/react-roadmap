@@ -2,7 +2,6 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router";
 
-import { deleteProduct } from "@/api/products";
 import { ButtonLink } from "@/components/UI/Button";
 import ProductMenuButton from "@/components/Product/ProductMenuButton";
 import ProductModal from "@/components/Modal/ProductModal";
@@ -11,7 +10,7 @@ import type { Product } from "@/types/product";
 
 interface ProductCardProps {
   product: Product;
-  onProductDeleted?: (productId: number | string) => void;
+  onDelete: (id: Product["id"]) => void;
 }
 
 // Styles
@@ -78,20 +77,11 @@ const Actions = styled.div`
   padding: 16px;
 `;
 
-function ProductCard({ product, onProductDeleted }: ProductCardProps) {
+function ProductCard({ product, onDelete }: ProductCardProps) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const imageUrl = `/images/products/${product.image || "default.png"}`;
   const productUrl = `/products/${product.id}`;
-
-  const handleDelete = async () => {
-    try {
-      await deleteProduct(product.id);
-      onProductDeleted(product.id);
-    } catch (error) {
-      console.error("Failed to delete product:", error);
-    }
-  };
 
   return (
     <Card>
@@ -118,7 +108,7 @@ function ProductCard({ product, onProductDeleted }: ProductCardProps) {
           size="small"
           variant="outline"
           onEdit={() => setIsEditModalOpen(true)}
-          onDelete={handleDelete}
+          onDelete={() => onDelete(product.id)}
         />
       </Actions>
 

@@ -18,10 +18,10 @@ import QuantityCounter from "@/components/QuantityCounter";
 import ProductMenuButton from "@/components/Product/ProductMenuButton";
 
 import type { Product } from "@/types/product";
-import { deleteProduct } from "@/api/products";
 
 interface ProductCardDetailsProps {
   product: Product;
+  onDelete: (id: Product["id"]) => void;
 }
 
 const Container = styled.article`
@@ -120,7 +120,7 @@ const ProductImage = styled.img`
   object-fit: contain;
 `;
 
-function ProductCardDetails({ product }: ProductCardDetailsProps) {
+function ProductCardDetails({ product, onDelete }: ProductCardDetailsProps) {
   const navigate = useNavigate();
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -153,7 +153,7 @@ function ProductCardDetails({ product }: ProductCardDetailsProps) {
 
   const handleDelete = async () => {
     try {
-      await deleteProduct(product.id);
+      onDelete(product.id);
       navigate("/products");
     } catch (error) {
       console.error("Failed to delete product:", error);
