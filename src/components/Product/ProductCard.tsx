@@ -11,8 +11,8 @@ import type { Product } from "@/types/product";
 
 interface ProductCardProps {
   product: Product;
-  onProductUpdated: (product: Product) => void;
-  onProductDeleted: (productId: number | string) => void;
+  onProductUpdated?: (product: Product) => void;
+  onProductDeleted?: (productId: number | string) => void;
 }
 
 // Styles

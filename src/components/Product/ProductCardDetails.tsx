@@ -22,7 +22,6 @@ import { deleteProduct } from "@/api/products";
 
 interface ProductCardDetailsProps {
   product: Product;
-  onProductUpdated: (product: Product) => void;
 }
 
 const Container = styled.article`
@@ -122,8 +121,7 @@ const ProductImage = styled.img`
 `;
 
 function ProductCardDetails({
-  product,
-  onProductUpdated,
+  product
 }: ProductCardDetailsProps) {
   const navigate = useNavigate();
 

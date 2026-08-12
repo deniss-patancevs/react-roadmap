@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import styled from "styled-components";
 
 import { getProduct } from "@/api/products";
 import ProductCardDetails from "@/components/Product/ProductCardDetails";
-import type { Product } from "@/types/product";
 
 const Container = styled.main`
   max-width: 1296px;
@@ -16,30 +15,33 @@ const Container = styled.main`
 
 function ProductDetailsPage() {
   const { id } = useParams();
-  const [product, setProduct] = useState<Product | null>(null);
 
-  useEffect(() => {
-    async function loadProduct() {
-      if (!id) return;
-      const data = await getProduct(id);
+  const {
+    data: product,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["products", id],
+    queryFn: () => getProduct(id!),
+    enabled: Boolean(id),
+  });
 
-      setProduct(data);
-    }
+  if (isLoading) {
+    return <Container>Loading...</Container>;
+  }
 
-    loadProduct();
-  }, [id]);
-
+  if (isError) {
+    return <Container>{error.message}</Container>;
+  }
 
   if (!product) {
-    return <Container>Loading...</Container>;
+    return <Container>Product not found.</Container>;
   }
 
   return (
     <Container>
-      <ProductCardDetails
-        product={product}
-        onProductUpdated={setProduct}
-      />
+      <ProductCardDetails product={product} />
     </Container>
   );
 }
