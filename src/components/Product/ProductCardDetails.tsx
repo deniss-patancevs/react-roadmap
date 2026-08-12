@@ -120,9 +120,7 @@ const ProductImage = styled.img`
   object-fit: contain;
 `;
 
-function ProductCardDetails({
-  product
-}: ProductCardDetailsProps) {
+function ProductCardDetails({ product }: ProductCardDetailsProps) {
   const navigate = useNavigate();
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -236,10 +234,6 @@ function ProductCardDetails({
         mode="edit"
         product={product}
         onClose={() => setIsEditModalOpen(false)}
-        onSubmit={(updatedProduct) => {
-          onProductUpdated(updatedProduct);
-          setIsEditModalOpen(false);
-        }}
       />
       <AddToCartModal
         open={isAddToCartOpen}

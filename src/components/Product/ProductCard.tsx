@@ -11,7 +11,6 @@ import type { Product } from "@/types/product";
 
 interface ProductCardProps {
   product: Product;
-  onProductUpdated?: (product: Product) => void;
   onProductDeleted?: (productId: number | string) => void;
 }
 
@@ -79,11 +78,7 @@ const Actions = styled.div`
   padding: 16px;
 `;
 
-function ProductCard({
-  product,
-  onProductUpdated,
-  onProductDeleted,
-}: ProductCardProps) {
+function ProductCard({ product, onProductDeleted }: ProductCardProps) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const imageUrl = `/images/products/${product.image || "default.png"}`;
@@ -134,10 +129,6 @@ function ProductCard({
         mode="edit"
         product={product}
         onClose={() => setIsEditModalOpen(false)}
-        onSubmit={(updatedProduct) => {
-          onProductUpdated(updatedProduct);
-          setIsEditModalOpen(false);
-        }}
       />
     </Card>
   );

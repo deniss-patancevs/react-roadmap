@@ -1,3 +1,4 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -12,7 +13,6 @@ interface ProductModalProps {
   mode: "add" | "edit";
   product?: Product;
   onClose: () => void;
-  onSubmit: (product: Product) => void;
 }
 
 interface FormData {
@@ -146,13 +146,7 @@ const productToFormData = (product: Product): FormData => ({
   stock: product.stock ? String(product.stock) : "",
 });
 
-function ProductModal({
-  open,
-  mode,
-  product,
-  onClose,
-  onSubmit,
-}: ProductModalProps) {
+function ProductModal({ open, mode, product, onClose }: ProductModalProps) {
   const [formData, setFormData] = useState<FormData>(() => {
     if (mode === "edit" && product) {
       return productToFormData(product);
@@ -160,8 +154,40 @@ function ProductModal({
 
     return initialFormData;
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState("");
+
+  const queryClient = useQueryClient();
+
+  const createProductMutation = useMutation({
+    mutationFn: createProduct,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["products"],
+      });
+
+      setFormData(initialFormData);
+      onClose();
+    },
+  });
+
+  const updateProductMutation = useMutation({
+    mutationFn: updateProduct,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["products"],
+      });
+
+      if (product) {
+        queryClient.invalidateQueries({
+          queryKey: ["products", product.id],
+        });
+      }
+
+      setFormData(initialFormData);
+      onClose();
+    },
+  });
 
   if (!open) {
     return null;
@@ -181,59 +207,47 @@ function ProductModal({
   const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setIsSubmitting(true);
-    setError("");
+    const productData = {
+      name: formData.name,
+      price: Number(formData.price),
+      currency: formData.currency,
+      year: Number(formData.year),
+      ram: formData.ram,
+      warranty: Number(formData.warranty),
+      description_short: formData.description_short,
+      description_full: formData.description_full,
 
-    try {
-      const productData = {
-        name: formData.name,
-        price: Number(formData.price),
-        currency: formData.currency,
-        year: Number(formData.year),
-        ram: formData.ram,
-        warranty: Number(formData.warranty),
-        description_short: formData.description_short,
-        description_full: formData.description_full,
+      features: formData.features
+        .split("\n")
+        .map((feature) => feature.trim())
+        .filter(Boolean),
 
-        features: formData.features
-          .split("\n")
-          .map((feature) => feature.trim())
-          .filter(Boolean),
+      image: formData.image,
+      stock: Number(formData.stock),
+    };
 
-        image: formData.image,
-        stock: Number(formData.stock),
-      };
+    if (mode === "edit" && product) {
+      updateProductMutation.mutate({
+        ...productData,
+        id: product.id,
+      });
 
-      let savedProduct: Product;
-
-      if (mode === "edit" && product) {
-        savedProduct = await updateProduct(product.id, productData);
-      } else {
-        savedProduct = await createProduct(productData);
-      }
-
-      onSubmit(savedProduct);
-
-      setFormData(initialFormData);
-      onClose();
-    } catch (error) {
-      console.error(error);
-
-      setError(
-        mode === "edit"
-          ? "Failed to update product. Please try again."
-          : "Failed to add product. Please try again.",
-      );
-    } finally {
-      setIsSubmitting(false);
+      return;
     }
+
+    createProductMutation.mutate(productData);
   };
+
+  const isSubmitting =
+    createProductMutation.isPending || updateProductMutation.isPending;
+
+  const isError =
+    createProductMutation.isError || updateProductMutation.isError;
 
   const handleClose = () => {
     if (isSubmitting) return;
 
     setFormData(initialFormData);
-    setError("");
     onClose();
   };
 
@@ -335,7 +349,12 @@ function ProductModal({
             onChange={handleChange}
           />
 
-          {error && <ErrorMessage>{error}</ErrorMessage>}
+          {isError && (
+            <ErrorMessage>
+              Failed to {mode === "edit" ? "update" : "add"} product. Please try
+              again.
+            </ErrorMessage>
+          )}
 
           <Actions>
             <ActionButton

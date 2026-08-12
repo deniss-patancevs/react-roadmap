@@ -71,11 +71,6 @@ function ProductsPage() {
         open={isAddProductModalOpen}
         mode="add"
         onClose={() => setIsAddProductModalOpen(false)}
-        onSubmit={(product) => {
-          console.log(product);
-
-          setIsAddProductModalOpen(false);
-        }}
       />
     </Container>
   );
