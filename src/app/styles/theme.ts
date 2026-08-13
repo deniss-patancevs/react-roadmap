@@ -16,6 +16,11 @@ export const theme = {
       maxWidth: "1440px",
       padding: "32px",
     },
+    breakpoints: {
+      desktop: "1199px",
+      tablet: "768px",
+      phone: "440px",
+    },
   },
 
   shadows: {

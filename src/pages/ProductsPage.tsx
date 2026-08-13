@@ -13,6 +13,14 @@ const Container = styled.main`
   padding: 85px 70px;
   margin-left: auto;
   margin-right: auto;
+
+  @media (max-width: 1199px) {
+    padding: 60px 40px;
+  }
+
+  @media (max-width: 440px) {
+    padding: 20px 20px;
+  }
 `;
 
 const Actions = styled.div`
@@ -23,9 +31,18 @@ const Actions = styled.div`
 const Grid = styled.section`
   margin-top: 108px;
   display: grid;
-  grid-template-columns: repeat(4, 310px);
-  gap: 21px;
-  justify-content: space-between;
+  grid-template: auto / repeat(auto-fit, minmax(280px, 310px));
+  gap: 41px;
+  justify-content: center;
+
+  @media (max-width: 1199px) {
+    margin-top: 70px;
+    gap: 21px;
+  }
+
+  @media (max-width: 440px) {
+    margin-top: 30px;
+  }
 `;
 
 // Component
