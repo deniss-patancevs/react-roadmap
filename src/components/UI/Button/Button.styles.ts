@@ -69,6 +69,7 @@ const sharedStyles = css<StyledButtonProps>`
   font-family: "Roboto", sans-serif;
   ${({ $size }) => sizeStyles[$size]}
   ${({ $variant }) => variantStyles[$variant]}
+  white-space: nowrap;
 
   &:hover {
     opacity: 0.9;

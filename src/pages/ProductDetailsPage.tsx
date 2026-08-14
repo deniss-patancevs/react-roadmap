@@ -12,6 +12,19 @@ const Container = styled.main`
   padding: 45px 106px;
   border-radius: ${({ theme }) => theme.borderRadius.small};
   box-shadow: ${({ theme }) => theme.shadows.card};
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.desktop}) {
+    margin: 70px 32px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.tablet}) {
+    margin: 70px 32px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.phone}) {
+    margin: 0;
+    padding: 10px 32px;
+  }
 `;
 
 function ProductDetailsPage() {
@@ -29,17 +42,13 @@ function ProductDetailsPage() {
     loadProduct();
   }, [id]);
 
-
   if (!product) {
     return <Container>Loading...</Container>;
   }
 
   return (
     <Container>
-      <ProductCardDetails
-        product={product}
-        onProductUpdated={setProduct}
-      />
+      <ProductCardDetails product={product} onProductUpdated={setProduct} />
     </Container>
   );
 }

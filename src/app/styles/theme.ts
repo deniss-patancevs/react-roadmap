@@ -17,7 +17,7 @@ export const theme = {
       padding: "32px",
     },
     breakpoints: {
-      desktop: "1199px",
+      desktop: "1440px",
       tablet: "768px",
       phone: "440px",
     },
