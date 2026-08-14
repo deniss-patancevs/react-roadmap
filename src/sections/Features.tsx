@@ -7,12 +7,22 @@ import lightBulbIcon from "@/assets/icons/light_bulb.svg";
 const Section = styled.section`
   padding-top: 65px;
   padding-bottom: 69px;
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.desktop}) {
+    padding-top: 55px;
+    padding-bottom: 60px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.phone}) {
+    padding: 45px 16px 50px;
+  }
 `;
 
 const Container = styled.div`
-  width: 1071px;
-  height: 448px;
+  width: 100%;
+  max-width: 1071px;
   margin: 0 auto;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,15 +31,37 @@ const Container = styled.div`
 const Title = styled.h2`
   margin: 0;
 
-  font-size: 36px;
-  font-weight: 600;
-  line-height: 100%;
+  font-size: ${({ theme }) => theme.typography.subheading.fontSize});
+  font-weight: ${({ theme }) => theme.typography.subheading.fontWeight});
+  line-height: ${({ theme }) => theme.typography.subheading.lineHeight});
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.phone}) {
+    font-size: 30px;
+    text-align: center;
+  }
 `;
 
 const Cards = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 69px;
-  margin-top: 65px;
+  margin: 65px auto 0 auto;
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.desktop}) {
+    gap: 30px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.tablet}) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 50px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.phone}) {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
 `;
 
 function Features() {
