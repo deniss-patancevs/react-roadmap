@@ -48,11 +48,11 @@ const Cards = styled.div`
   margin: 65px auto 0 auto;
 
   @media (max-width: ${({ theme }) => theme.layout.breakpoints.desktop}) {
+    grid-template-columns: repeat(2, 1fr);
     gap: 30px;
   }
 
   @media (max-width: ${({ theme }) => theme.layout.breakpoints.tablet}) {
-    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
     margin-top: 50px;
   }
