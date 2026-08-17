@@ -1,12 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { getProducts, deleteProduct } from "@/api/products";
 import ProductCard from "@/components/Product/ProductCard";
 import Button from "@/components/UI/Button";
 import AddIcon from "@mui/icons-material/Add";
 import ProductModal from "@/components/Modal/ProductModal";
+import { useProductList } from "@/features/products/hooks/useProductList";
+import { useDeleteProduct } from "@/features/products/hooks/useDeleteProduct";
 
 import type { Product } from "@/types/product";
 
@@ -57,33 +57,18 @@ const Grid = styled.section`
 
 function ProductsPage() {
   const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
-  const queryClient = useQueryClient();
 
   // Get all products
-  const {
-    data: products = [],
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["products"],
-    queryFn: getProducts,
-  });
+  const { data: products = [], isLoading, isError, error } = useProductList();
 
   // Delete product
-  const deleteProductMutation = useMutation({
-    mutationFn: deleteProduct,
-
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["products"],
-      });
-    },
-  });
+  const deleteProductMutation = useDeleteProduct();
 
   const handleDelete = (id: Product["id"]) => {
     deleteProductMutation.mutate(id);
   };
+
+  // State
 
   if (isLoading) {
     return <div>Loading...</div>;
