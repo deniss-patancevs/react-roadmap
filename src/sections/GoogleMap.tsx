@@ -4,11 +4,34 @@ interface GoogleMapProps {
   address: string;
 }
 
+/*
+      STYLES
+*/
+
 const MapFrame = styled.iframe`
-  width: 745px;
+  display: block;
+
+  width: 100%;
   height: 323px;
+
   border: 0;
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.desktop}) {
+    height: 300px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.tablet}) {
+    height: 280px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.phone}) {
+    height: 250px;
+  }
 `;
+
+/*
+      COMPONENT 
+*/
 
 function GoogleMap({ address }: GoogleMapProps) {
   const src = `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
