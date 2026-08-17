@@ -24,14 +24,28 @@ interface ProductCardDetailsProps {
   onDelete: (id: Product["id"]) => void;
 }
 
+/*
+      STYLES
+*/
+
 const Container = styled.article`
   width: 100%;
 `;
 
 const Content = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 64px;
+  align-items: start;
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.desktop}) {
+    gap: 40px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.tablet}) {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
 `;
 
 const Info = styled.div`
@@ -47,6 +61,9 @@ const Title = styled.h1`
   font-weight: ${({ theme }) => theme.typography.subheading.fontWeight};
   line-height: ${({ theme }) => theme.typography.subheading.lineHeight};
   letter-spacing: ${({ theme }) => theme.typography.subheading.letterSpacing};
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.phone}) {
+    font-size: 30px;
 `;
 
 const Description = styled.p`
@@ -58,6 +75,11 @@ const Description = styled.p`
   line-height: 30px;
 
   color: ${({ theme }) => theme.colors.secondaryText};
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.phone}) {
+    margin-top: 24px;
+    line-height: 26px;
+  }
 `;
 
 const Specifications = styled.div`
@@ -65,6 +87,14 @@ const Specifications = styled.div`
   align-items: center;
   gap: 33px;
   margin-top: 24px;
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.tablet}) {
+    gap: 20px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.phone}) {
+    gap: 12px 20px;
+  }
 `;
 
 const Specification = styled.span`
@@ -76,6 +106,10 @@ const Specification = styled.span`
 
 const FeaturesSection = styled.section`
   margin-top: 40px;
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.phone}) {
+    margin-top: 32px;
+  }
 `;
 
 const FeaturesTitle = styled.h2`
@@ -90,6 +124,10 @@ const FeaturesTitle = styled.h2`
 const FeaturesList = styled.ul`
   margin: 16px 0 0;
   padding-left: 24px;
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.phone}) {
+    padding-left: 20px;
+  }
 `;
 
 const Feature = styled.li`
@@ -110,15 +148,46 @@ const Price = styled.p`
 
 const Actions = styled.div`
   display: flex;
+  align-items: center;
   gap: 35px;
   margin-top: 40px;
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.desktop}) {
+    gap: 20px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.phone}) {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 32px;
+    gap: 16px;
+  }
+`;
+
+const ImageContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  @media (max-width: ${({ theme }) => theme.layout.breakpoints.tablet}) {
+    order: -1;
+  }
 `;
 
 const ProductImage = styled.img`
-  width: 80%;
+  width: 100%;
+  max-width: 520px;
+  min-width: 320px;
   height: auto;
+
   object-fit: contain;
+  justify-self: center;
 `;
+
+/*
+      COMPONENT 
+*/
 
 function ProductCardDetails({ product, onDelete }: ProductCardDetailsProps) {
   const navigate = useNavigate();
@@ -224,7 +293,9 @@ function ProductCardDetails({ product, onDelete }: ProductCardDetailsProps) {
           </Actions>
         </Info>
 
-        <ProductImage src={imageUrl} alt={product.name} />
+        <ImageContainer>
+          <ProductImage src={imageUrl} alt={product.name} />
+        </ImageContainer>
       </Content>
 
       {/* Modal */}
