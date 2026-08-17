@@ -24,10 +24,11 @@
 │   │   ├── store
 │   │   │   ├── hooks.ts
 │   │   │   └── store.ts
-│   │   └── styles
-│   │       ├── GlobalStyles.ts
-│   │       ├── styled.d.ts
-│   │       └── theme.ts
+│   │   ├── styles
+│   │   │   ├── GlobalStyles.ts
+│   │   │   ├── styled.d.ts
+│   │   │   └── theme.ts
+│   │   └── queryClient.ts
 │   ├── assets
 │   │   ├── icons
 │   │   │   ├── devices_wearables.svg
@@ -103,4 +104,4 @@
 ├── tsconfig.node.json
 └── vite.config.ts
 
-31 directories, 73 files
+31 directories, 74 files

@@ -1,9 +1,9 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import styled from "styled-components";
 
-import { getProduct, deleteProduct } from "@/api/products";
 import ProductCardDetails from "@/components/Product/ProductCardDetails";
+import { useProductDetails } from "@/features/products/hooks/useProductDetails";
+import { useDeleteProduct } from "@/features/products/hooks/useDeleteProduct";
 
 import type { Product } from "@/types/product";
 
@@ -38,34 +38,18 @@ const Container = styled.main`
 
 function ProductDetailsPage() {
   const { id } = useParams();
-  const queryClient = useQueryClient();
 
   // Get product by ID
-  const {
-    data: product,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["products", id],
-    queryFn: () => getProduct(id!),
-    enabled: Boolean(id),
-  });
+  const { data: product, isLoading, isError, error } = useProductDetails(id);
 
   // Delete product
-  const deleteProductMutation = useMutation({
-    mutationFn: deleteProduct,
-
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["products"],
-      });
-    },
-  });
+  const deleteProductMutation = useDeleteProduct();
 
   const handleDelete = (id: Product["id"]) => {
     deleteProductMutation.mutate(id);
   };
+
+  // State
 
   if (isLoading) {
     return <Container>Loading...</Container>;
