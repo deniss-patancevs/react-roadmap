@@ -1,11 +1,14 @@
+import { useState } from "react";
 import styled from "styled-components";
-import { getProducts } from "@/api/products";
-import type { Product } from "@/types/product";
-import { useEffect, useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+
+import { getProducts, deleteProduct } from "@/api/products";
 import ProductCard from "@/components/Product/ProductCard";
 import Button from "@/components/UI/Button";
 import AddIcon from "@mui/icons-material/Add";
 import ProductModal from "@/components/Modal/ProductModal";
+
+import type { Product } from "@/types/product";
 
 // Styles
 const Container = styled.main`
@@ -30,35 +33,42 @@ const Grid = styled.section`
 
 // Component
 function ProductsPage() {
-  const [products, setProducts] = useState<Product[]>([]);
   const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    async function loadProducts() {
-      try {
-        const data = await getProducts();
-        setProducts(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
+  // Get all products
+  const {
+    data: products = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["products"],
+    queryFn: getProducts,
+  });
 
-    loadProducts();
-  }, []);
+  // Delete product
+  const deleteProductMutation = useMutation({
+    mutationFn: deleteProduct,
 
-  const handleProductUpdated = (updatedProduct: Product) => {
-    setProducts((currentProducts) =>
-      currentProducts.map((product) =>
-        product.id === updatedProduct.id ? updatedProduct : product,
-      ),
-    );
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["products"],
+      });
+    },
+  });
+
+  const handleDelete = (id: Product["id"]) => {
+    deleteProductMutation.mutate(id);
   };
 
-  const handleProductDeleted = (productId: number | string) => {
-    setProducts((currentProducts) =>
-      currentProducts.filter((product) => product.id !== productId),
-    );
-  };
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>{error.message}</div>;
+  }
 
   return (
     <Container>
@@ -74,8 +84,7 @@ function ProductsPage() {
           <ProductCard
             key={product.id}
             product={product}
-            onProductUpdated={handleProductUpdated}
-            onProductDeleted={handleProductDeleted}
+            onDelete={handleDelete}
           />
         ))}
       </Grid>
@@ -85,10 +94,6 @@ function ProductsPage() {
         open={isAddProductModalOpen}
         mode="add"
         onClose={() => setIsAddProductModalOpen(false)}
-        onSubmit={(product) => {
-          setProducts((currentProducts) => [...currentProducts, product]);
-          setIsAddProductModalOpen(false);
-        }}
       />
     </Container>
   );

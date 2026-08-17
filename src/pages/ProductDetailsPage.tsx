@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import styled from "styled-components";
 
-import { getProduct } from "@/api/products";
+import { getProduct, deleteProduct } from "@/api/products";
 import ProductCardDetails from "@/components/Product/ProductCardDetails";
+
 import type { Product } from "@/types/product";
 
 const Container = styled.main`
@@ -16,30 +17,50 @@ const Container = styled.main`
 
 function ProductDetailsPage() {
   const { id } = useParams();
-  const [product, setProduct] = useState<Product | null>(null);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    async function loadProduct() {
-      if (!id) return;
-      const data = await getProduct(id);
+  // Get product by ID
+  const {
+    data: product,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["products", id],
+    queryFn: () => getProduct(id!),
+    enabled: Boolean(id),
+  });
 
-      setProduct(data);
-    }
+  // Delete product
+  const deleteProductMutation = useMutation({
+    mutationFn: deleteProduct,
 
-    loadProduct();
-  }, [id]);
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["products"],
+      });
+    },
+  });
 
+  const handleDelete = (id: Product["id"]) => {
+    deleteProductMutation.mutate(id);
+  };
+
+  if (isLoading) {
+    return <Container>Loading...</Container>;
+  }
+
+  if (isError) {
+    return <Container>{error.message}</Container>;
+  }
 
   if (!product) {
-    return <Container>Loading...</Container>;
+    return <Container>Product not found.</Container>;
   }
 
   return (
     <Container>
-      <ProductCardDetails
-        product={product}
-        onProductUpdated={setProduct}
-      />
+      <ProductCardDetails product={product} onDelete={handleDelete} />
     </Container>
   );
 }

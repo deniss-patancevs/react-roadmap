@@ -19,11 +19,8 @@ export async function createProduct(
   });
 }
 
-export function updateProduct(
-  id: string,
-  product: Omit<Product, "id">,
-): Promise<Product> {
-  return api<Product>(`/products/${id}`, {
+export function updateProduct(product: Product): Promise<Product> {
+  return api<Product>(`/products/${product.id}`, {
     method: "PUT",
     body: product,
   });
