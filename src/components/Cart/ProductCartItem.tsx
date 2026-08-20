@@ -1,5 +1,8 @@
 import styled from "styled-components";
+
 import QuantityCounter from "@/components/QuantityCounter";
+import { calculateTotalPrice } from "@/features/cart/calculateTotalPrice";
+
 import type { Product } from "@/types/product";
 
 interface ProductCartProps {
@@ -141,7 +144,7 @@ function ProductCart({
   onDecrease,
   onIncrease,
 }: ProductCartProps) {
-  const total = product.price * quantity;
+  const total = calculateTotalPrice(product.price, quantity);
 
   return (
     <Container>

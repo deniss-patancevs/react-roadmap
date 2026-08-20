@@ -73,9 +73,16 @@
 │   │           ├── Button.tsx
 │   │           └── index.ts
 │   ├── features
-│   │   └── cart
-│   │       ├── cartSelectors.ts
-│   │       └── cartSlice.ts
+│   │   ├── cart
+│   │   │   ├── calculateTotalPrice.test.ts
+│   │   │   ├── calculateTotalPrice.ts
+│   │   │   ├── cartSelectors.ts
+│   │   │   └── cartSlice.ts
+│   │   └── products
+│   │       └── hooks
+│   │           ├── useDeleteProduct.ts
+│   │           ├── useProductDetails.ts
+│   │           └── useProductList.ts
 │   ├── layouts
 │   │   └── MainLayout.tsx
 │   ├── pages
@@ -104,4 +111,4 @@
 ├── tsconfig.node.json
 └── vite.config.ts
 
-31 directories, 74 files
+33 directories, 79 files
